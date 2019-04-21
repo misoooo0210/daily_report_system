@@ -26,6 +26,7 @@ public class EmployeesIndexServlet extends HttpServlet {
      */
     public EmployeesIndexServlet() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
     /**
@@ -35,31 +36,28 @@ public class EmployeesIndexServlet extends HttpServlet {
         EntityManager em = DBUtil.createEntityManager();
 
         int page = 1;
-        try {
+        try{
             page = Integer.parseInt(request.getParameter("page"));
-        } catch(NumberFormatException e) {}
-
+        } catch(NumberFormatException e) { }
         List<Employee> employees = em.createNamedQuery("getAllEmployees", Employee.class)
-                                      .setFirstResult(15 * (page -1))
-                                      .setMaxResults(15)
-                                      .getResultList();
+                                     .setFirstResult(15 * (page - 1))
+                                     .setMaxResults(15)
+                                     .getResultList();
 
         long employees_count = (long)em.createNamedQuery("getEmployeesCount", Long.class)
-                                        .getSingleResult();
+                                       .getSingleResult();
 
         em.close();
 
         request.setAttribute("employees", employees);
         request.setAttribute("employees_count", employees_count);
         request.setAttribute("page", page);
-
         if(request.getSession().getAttribute("flush") != null) {
             request.setAttribute("flush", request.getSession().getAttribute("flush"));
             request.getSession().removeAttribute("flush");
         }
+
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/employees/index.jsp");
         rd.forward(request, response);
-
     }
-
 }

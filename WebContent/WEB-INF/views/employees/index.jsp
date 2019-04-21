@@ -25,7 +25,7 @@
                                     (削除済)
                                 </c:when>
                                 <c:otherwise>
-                                    <a href="<c:url value='/employees/show?id=${employees.id}' />">詳細を表示</a>
+                                    <a href="<c:url value='/employees/show?id=${employee.id}' />">詳細を表示</a>
                                 </c:otherwise>
                             </c:choose>
                         </td>

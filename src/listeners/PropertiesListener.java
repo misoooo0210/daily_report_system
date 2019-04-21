@@ -1,4 +1,4 @@
-package listener;
+package listeners;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -37,21 +37,22 @@ public class PropertiesListener implements ServletContextListener {
      * @see ServletContextListener#contextInitialized(ServletContextEvent)
      */
     public void contextInitialized(ServletContextEvent arg0)  {
-         ServletContext context = arg0.getServletContext();
+        ServletContext context = arg0.getServletContext();
 
-         String path = context.getRealPath("/WEB-INF/application.properties");
-         try {
-             InputStream is = new FileInputStream(path);
-             Properties properties = new Properties();
-             properties.load(is);
-             is.close();
+        String path = context.getRealPath("/META-INF/application.properties");
+        try {
+            InputStream is = new FileInputStream(path);
+            Properties properties = new Properties();
+            properties.load(is);
+            is.close();
 
-             Iterator<String> pit = properties.stringPropertyNames().iterator();
-             while(pit.hasNext()) {
-                 String pname = pit.next();
-                 context.setAttribute(pname, properties.getProperty(pname));
-             }
-         } catch(FileNotFoundException e) {
-         } catch(IOException e) {}
+            Iterator<String> pit = properties.stringPropertyNames().iterator();
+            while(pit.hasNext()) {
+                String pname = pit.next();
+                context.setAttribute(pname, properties.getProperty(pname));
+            }
+        } catch(FileNotFoundException e) {
+        } catch(IOException e) {}
     }
+
 }

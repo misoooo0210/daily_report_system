@@ -62,20 +62,20 @@ public class Report {
     @Column(name = "updated_at", nullable = false)
     private Timestamp updated_at;
 
-    /*@Column(name = "company", nullable = false)
+    @Column(name = "company", nullable = false)
     private String company;
 
     @Column(name= "meet_time", nullable = false)
-    private Timestamp meet_time;
+    private Date meet_time;
 
     @Column(name = "meet_at", nullable = false)
     private String meet_at;
 
-    @Column(name = "status", nullable = false)
-    private String status;
+    @Column(name = "progress", nullable = false)
+    private String progress;
 
     @Column(name= "next_time", nullable = false)
-    private Date next_time;*/
+    private Date next_time;
 
     public Integer getId() {
         return id;
@@ -133,7 +133,7 @@ public class Report {
         this.updated_at = updated_at;
     }
 
-    /*public String getCompany() {
+    public String getCompany() {
         return company;
     }
 
@@ -141,11 +141,11 @@ public class Report {
         this.company = company;
     }
 
-    public Timestamp getMeet_time() {
+    public Date getMeet_time() {
         return meet_time;
     }
 
-    public void setMeet_time(Timestamp meet_time) {
+    public void setMeet_time(Date meet_time) {
         this.meet_time = meet_time;
     }
 
@@ -157,12 +157,12 @@ public class Report {
         this.meet_at = meet_at;
     }
 
-    public String getStatus() {
-        return status;
+    public String getProgress() {
+        return progress;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setProgress(String progress) {
+        this.progress = progress;
     }
     public Date getNext_time() {
         return next_time;
@@ -170,6 +170,6 @@ public class Report {
 
     public void setNext_time(Date next_time) {
         this.next_time = next_time;
-    }*/
+    }
 
 }

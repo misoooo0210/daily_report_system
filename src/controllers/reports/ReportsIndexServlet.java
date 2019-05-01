@@ -51,7 +51,6 @@ public class ReportsIndexServlet extends HttpServlet {
 
         em.close();
 
-
         request.setAttribute("reports", reports);
         request.setAttribute("reports_count", reports_count);
         request.setAttribute("page", page);

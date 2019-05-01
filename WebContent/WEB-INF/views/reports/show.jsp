@@ -20,9 +20,33 @@
                             </td>
                         </tr>
                         <tr>
+                            <th>取引先名</th>
+                            <td><c:out value="${report.company}" /></td>
+                        </tr>
+                        <tr>
+                            <th>商談日程</th>
+                            <td>
+                                <fmt:formatDate value="${report.meet_time}" pattern="yyyy-MM-dd" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>商談場所</th>
+                            <td><c:out value="${report.meet_at}" /></td>
+                        </tr>
+                        <tr>
                             <th>内容</th>
                             <td>
                                 <pre><c:out value="${report.content}" /></pre>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>進捗状況</th>
+                            <td><c:out value="${report.progress}" /></td>
+                        </tr>
+                        <tr>
+                            <th>次回商談予定日</th>
+                            <td>
+                                <fmt:formatDate value="${report.next_time}" pattern="yyyy-MM-dd" />
                             </td>
                         </tr>
                         <tr>

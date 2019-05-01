@@ -20,7 +20,7 @@ public class ReportValidator {
         errors.add(content_error);
     }
 
-    /*String company_error = _validateCompany(r.getCompany());
+    String company_error = _validateCompany(r.getCompany());
     if(!company_error.equals("")) {
         errors.add(company_error);
     }
@@ -28,7 +28,7 @@ public class ReportValidator {
     String meet_at_error = _validateMeet_at(r.getMeet_at());
     if(!meet_at_error.equals("")) {
         errors.add(meet_at_error);
-    }*/
+    }
 
     return errors;
     }
@@ -47,7 +47,7 @@ public class ReportValidator {
         return "";
     }
 
-    /*public static String _validateCompany(String company) {
+    public static String _validateCompany(String company) {
         if(company == null || company.equals("")) {
             return "取引先名を入力してください。";
         }
@@ -59,5 +59,5 @@ public class ReportValidator {
             return "商談場所を入力してください。";
         }
         return "";
-    }*/
+    }
 }

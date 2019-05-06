@@ -18,7 +18,12 @@
 <br /><br />
 
 <label for="company">取引先名</label><br />
-<input type="text" name="company" value="${report.company}" />
+<select name="company" size="5">
+    <c:set var="companies" value=""/>
+    <c:forEach var="company" items="${companylist}">
+        <option value="${company.id}">${company.name}</option>
+    </c:forEach>
+</select>&nbsp;<a href="<c:url value='/companies/new' />">取引先登録はここから</a>
 <br /><br />
 
 <label for="meet_time">商談日程</label><br />

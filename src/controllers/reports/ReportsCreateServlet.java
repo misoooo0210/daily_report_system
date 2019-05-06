@@ -43,22 +43,22 @@ public class ReportsCreateServlet extends HttpServlet {
             Report r = new Report();
 
             r.setEmployee((Employee)request.getSession().getAttribute("login_employee"));
+            r.setCompany(request.getParameter("company"));
 
             Date report_date = new Date(System.currentTimeMillis());
             String rd_str = request.getParameter("report_date");
-            if(rd_str != null && rd_str.equals("")) {
+            if(rd_str != null && !rd_str.equals("")) {
                 report_date = Date.valueOf(request.getParameter("report_date"));
             }
             r.setReport_date(report_date);
+            //r.setMeet_time(Date.valueOf(request.getParameter("meet_time")));
+            //r.setNext_time(Date.valueOf(request.getParameter("next_time")));
 
             r.setTitle(request.getParameter("title"));
             r.setContent(request.getParameter("content"));
-            r.setCompany(request.getParameter("company"));
-            r.setMeet_time(Date.valueOf(request.getParameter("meet_time")));
             r.setMeet_at(request.getParameter("meet_at"));
             r.setProgress(request.getParameter("progress"));
-            r.setNext_time(Date.valueOf(request.getParameter("next_time")));
-
+            r.setApproval_result(0);
             Timestamp currentTime = new Timestamp(System.currentTimeMillis());
             r.setCreated_at(currentTime);
             r.setUpdated_at(currentTime);

@@ -21,10 +21,17 @@
 <input type="password" name="password" />
 <br /><br />
 
-<label for="admin_flag">権限</label><br />
+<label for="admin_flag">従業員管理権限</label><br />
 <select name="admin_flag">
     <option value="0"<c:if test="${employee.admin_flag == 0}"> selected</c:if>>一般</option>
     <option value="1"<c:if test="${employee.admin_flag == 1}"> selected</c:if>>管理者</option>
+</select>
+<br /><br />
+
+<label for="approval_flag">承認権限</label><br />
+<select name="approval_flag">
+    <option value="0"<c:if test="${employee.approval_flag == 0}"> selected</c:if>>一般</option>
+    <option value="1"<c:if test="${employee.approval_flag == 1}"> selected</c:if>>承認者</option>
 </select>
 <br /><br />
 

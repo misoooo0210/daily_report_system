@@ -72,9 +72,28 @@ a {
 table, tr, th, td {
     border: 1px solid #cccccc;
 }
+
 table {
     width: 100%;
     table-layout: fixed;
+}
+
+table#company_list{
+    width: 30%;
+}
+
+table#company_list th{
+    font-weight: bold;
+    padding: 10px 2%;
+}
+
+table#company_list .company_name {
+    width: 5%;
+    padding: 10px 2%;
+}
+
+table#company_list .company_action {
+    width: 8%;
 }
 
 th {

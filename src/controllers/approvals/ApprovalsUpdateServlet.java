@@ -1,7 +1,6 @@
-package controllers.reports;
+package controllers.approvals;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -13,22 +12,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import models.Report;
-import models.validators.ReportValidator;
+import models.Approval;
+import models.validators.ApprovalValidator;
 import utils.DBUtil;
 
 /**
- * Servlet implementation class ReportsUpdateServlet
+ * Servlet implementation class ApprovalsUpdateServlet
  */
-@WebServlet("/reports/update")
-public class ReportsUpdateServlet extends HttpServlet {
+@WebServlet("/approvals/update")
+public class ApprovalsUpdateServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReportsUpdateServlet() {
+    public ApprovalsUpdateServlet() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
     /**
@@ -39,27 +39,22 @@ public class ReportsUpdateServlet extends HttpServlet {
         if(_token != null && _token.equals(request.getSession().getId())) {
             EntityManager em = DBUtil.createEntityManager();
 
-            Report r = em.find(Report.class, (Integer)(request.getSession().getAttribute("report_id")));
-            r.setCompany(request.getParameter("company"));
+            Approval a = em.find(Approval.class, (Integer)(request.getSession().getAttribute("report_id")));
 
-            r.setReport_date(Date.valueOf(request.getParameter("report_date")));
-            r.setTitle(request.getParameter("title"));
-            r.setContent(request.getParameter("content"));
-            r.setUpdated_at(new Timestamp(System.currentTimeMillis()));
-            r.setMeet_time(Date.valueOf(request.getParameter("meet_time")));
-            r.setMeet_at(request.getParameter("meet_at"));
-            r.setProgress(request.getParameter("progress"));
-            r.setNext_time(Date.valueOf(request.getParameter("next_time")));
+            a.setApprover(request.getParameter("approver"));
+            a.setApproved_date(new Timestamp(System.currentTimeMillis()));
+            a.setApproval_result(Integer.parseInt(request.getParameter("approval_result")));
+            a.setApproval_comment(request.getParameter("approval_comment"));
 
-            List<String> errors = ReportValidator.validate(r);
+            List<String> errors = ApprovalValidator.validate(a);
             if(errors.size() > 0) {
                 em.close();
 
                 request.setAttribute("_token", request.getSession().getId());
-                request.setAttribute("report", r);
+                request.setAttribute("approval", a);
                 request.setAttribute("errors", errors);
 
-                RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/reports/edit.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/approvals/edit.jsp");
                 rd.forward(request, response);
             } else {
                 em.getTransaction().begin();

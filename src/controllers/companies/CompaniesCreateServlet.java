@@ -1,4 +1,4 @@
-package controllers.employees;
+package controllers.companies;
 
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -12,23 +12,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import models.Employee;
-import models.validators.EmployeeValidator;
+import models.Company;
+import models.validators.CompanyValidator;
 import utils.DBUtil;
-import utils.EncryptUtil;
 
 /**
- * Servlet implementation class EmployeesCreateServlet
+ * Servlet implementation class CompaniesCreateServlet
  */
-@WebServlet("/employees/create")
-public class EmployeesCreateServlet extends HttpServlet {
+@WebServlet("/companies/create")
+public class CompaniesCreateServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EmployeesCreateServlet() {
+    public CompaniesCreateServlet() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
     /**
@@ -39,43 +39,32 @@ public class EmployeesCreateServlet extends HttpServlet {
         if(_token != null && _token.equals(request.getSession().getId())) {
             EntityManager em = DBUtil.createEntityManager();
 
-            Employee e = new Employee();
+            Company c = new Company();
 
-            e.setCode(request.getParameter("code"));
-            e.setName(request.getParameter("name"));
-            e.setPassword(
-                    EncryptUtil.getPasswordEncrypt(
-                            request.getParameter("password"),
-                            (String)this.getServletContext().getAttribute("salt")
-                            )
-                    );
-
-            e.setAdmin_flag(Integer.parseInt(request.getParameter("admin_flag")));
-            e.setApproval_flag(Integer.parseInt(request.getParameter("approval_flag")));
-
+            c.setName(request.getParameter("name"));
+            c.setDelete_flag(0);
             Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-            e.setCreated_at(currentTime);
-            e.setUpdated_at(currentTime);
-            e.setDelete_flag(0);
+            c.setCreated_at(currentTime);
 
-            List<String> errors = EmployeeValidator.validate(e, true, true);
+            List<String> errors = CompanyValidator.validate(c);
             if(errors.size() > 0) {
                 em.close();
 
                 request.setAttribute("_token", request.getSession().getId());
-                request.setAttribute("employee", e);
+                request.setAttribute("company", c);
                 request.setAttribute("errors", errors);
 
-                RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/employees/new.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/companies/new.jsp");
                 rd.forward(request, response);
+
             } else {
                 em.getTransaction().begin();
-                em.persist(e);
+                em.persist(c);
                 em.getTransaction().commit();
                 em.close();
                 request.getSession().setAttribute("flush", "登録が完了しました。");
 
-                response.sendRedirect(request.getContextPath() + "/employees/index");
+                response.sendRedirect(request.getContextPath() + "/companies/new");
             }
         }
     }

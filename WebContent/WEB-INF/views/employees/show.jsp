@@ -18,10 +18,19 @@
                             <td><c:out value="${employee.name}" /></td>
                         </tr>
                         <tr>
-                            <th>権限</th>
+                            <th>従業員管理権限</th>
                             <td>
                                 <c:choose>
                                     <c:when test="${employee.admin_flag == 1}">管理者</c:when>
+                                    <c:otherwise>一般</c:otherwise>
+                                </c:choose>
+                            </td>
+                        <tr>
+                        <tr>
+                            <th>承認権限</th>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${employee.approval_flag == 1}">承認者</c:when>
                                     <c:otherwise>一般</c:otherwise>
                                 </c:choose>
                             </td>

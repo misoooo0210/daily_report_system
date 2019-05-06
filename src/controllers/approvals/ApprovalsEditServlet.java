@@ -1,7 +1,6 @@
-package controllers.reports;
+package controllers.approvals;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.servlet.RequestDispatcher;
@@ -11,22 +10,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import models.Company;
 import models.Employee;
 import models.Report;
 import utils.DBUtil;
 
 /**
- * Servlet implementation class ReportsEditServlet
+ * Servlet implementation class ApprovalsEditServlet
  */
-@WebServlet("/reports/edit")
-public class ReportsEditServlet extends HttpServlet {
+@WebServlet("/approvals/edit")
+public class ApprovalsEditServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReportsEditServlet() {
+    public ApprovalsEditServlet() {
         super();
     }
 
@@ -38,11 +36,6 @@ public class ReportsEditServlet extends HttpServlet {
 
         Report r = em.find(Report.class, Integer.parseInt(request.getParameter("id")));
 
-        //取引先名の一覧をつくる
-        List<Company> companylist = em.createNamedQuery("getAllCompanies", Company.class)
-                                       .getResultList();
-        request.setAttribute("companylist", companylist);
-
         em.close();
 
         Employee login_employee = (Employee)request.getSession().getAttribute("login_employee");
@@ -52,7 +45,7 @@ public class ReportsEditServlet extends HttpServlet {
             request.getSession().setAttribute("report_id", r.getId());
         }
 
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/reports/edit.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/approvals/edit.jsp");
         rd.forward(request, response);
     }
 

@@ -30,6 +30,16 @@ public class ReportValidator {
         errors.add(meet_at_error);
     }
 
+    /*String meet_time_error = _validateMeet_time(r.getMeet_time());
+    if(!meet_time_error.equals("")) {
+        errors.add(meet_time_error);
+    }
+
+    String next_time_error = _validateNext_time(r.getNext_time());
+    if(!next_time_error.equals("")) {
+        errors.add(next_time_error);
+    }*/
+
     return errors;
     }
 
@@ -60,4 +70,18 @@ public class ReportValidator {
         }
         return "";
     }
+
+    /*public static String _validateMeet_time(Date meet_time) {
+        if(meet_time == null || meet_time.equals("")) {
+            return "商談日程を入力してください。";
+        }
+        return "";
+    }
+
+    public static String _validateNext_time(Date next_time) {
+        if(next_time == null || next_time.equals("")) {
+            return "次回商談予定日を入力してください。";
+        }
+        return "";
+    }*/
 }

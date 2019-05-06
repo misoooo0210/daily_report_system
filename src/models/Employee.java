@@ -49,6 +49,9 @@ public class Employee {
     @Column(name = "admin_flag", nullable = false)
     private Integer admin_flag;
 
+    @Column(name = "approval_flag", nullable = false)
+    private Integer approval_flag;
+
     @Column(name = "created_at", nullable = false)
     private Timestamp created_at;
 
@@ -100,6 +103,14 @@ public class Employee {
 
     public Timestamp getCreated_at() {
         return created_at;
+    }
+
+    public Integer getApproval_flag() {
+        return approval_flag;
+    }
+
+    public void setApproval_flag(Integer approval_flag) {
+        this.approval_flag = approval_flag;
     }
 
     public void setCreated_at(Timestamp created_at) {

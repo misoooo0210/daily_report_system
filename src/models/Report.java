@@ -77,6 +77,9 @@ public class Report {
     @Column(name= "next_time", nullable = false)
     private Date next_time;
 
+    @JoinColumn(name = "approval_result", nullable = false)
+    private Integer approval_result;
+
     public Integer getId() {
         return id;
     }
@@ -170,6 +173,14 @@ public class Report {
 
     public void setNext_time(Date next_time) {
         this.next_time = next_time;
+    }
+
+    public Integer getApproval_result() {
+        return approval_result;
+    }
+
+    public void setApproval_result(Integer approval_result) {
+        this.approval_result = approval_result ;
     }
 
 }

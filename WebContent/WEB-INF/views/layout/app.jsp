@@ -18,6 +18,9 @@
                             <a href="<c:url value='/employees/index' />">従業員管理</a>&nbsp;
                         </c:if>
                         <a href="<c:url value='/reports/index' />">日報管理</a>&nbsp;
+                        <c:if test="${sessionScope.login_employee.approval_flag == 1}">
+                            <a href="<c:url value='/approvals/index' />">日報を承認する</a>&nbsp;
+                        </c:if>
                     </c:if>
                 </div>
                 <c:if test="${sessionScope.login_employee != null}">
@@ -28,10 +31,10 @@
                 </c:if>
             </div>
             <div id="content">
-                ${param.content}
+                ${param.content}<%-- ここに各jspの記載内容がそのまま入る --%>
             </div>
             <div id="footer">
-                by Taro Kirameki.
+                by Hitomi Bamba, created by TechAcademy
             </div>
         </div>
     </body>

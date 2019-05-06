@@ -21,7 +21,7 @@
                         </tr>
                         <tr>
                             <th>取引先名</th>
-                            <td><c:out value="${report.company}" /></td>
+                            <td><c:out value="${company.name}" /></td>
                         </tr>
                         <tr>
                             <th>商談日程</th>

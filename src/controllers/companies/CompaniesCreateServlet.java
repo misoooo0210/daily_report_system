@@ -46,7 +46,7 @@ public class CompaniesCreateServlet extends HttpServlet {
             Timestamp currentTime = new Timestamp(System.currentTimeMillis());
             c.setCreated_at(currentTime);
 
-            List<String> errors = CompanyValidator.validate(c);
+            List<String> errors = CompanyValidator.validate(c, true);
             if(errors.size() > 0) {
                 em.close();
 

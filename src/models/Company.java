@@ -16,7 +16,11 @@ import javax.persistence.Table;
     @NamedQuery(
             name = "getAllCompanies",
             query = "SELECT c FROM Company AS c ORDER BY c.id DESC"
-            )
+            ),
+    @NamedQuery(
+            name = "checkRegisteredName",
+            query = "SELECT COUNT(c) FROM Company AS c WHERE c.name = :name"
+            ),
 })
 
 @Entity

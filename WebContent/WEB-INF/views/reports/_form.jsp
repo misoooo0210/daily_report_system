@@ -18,7 +18,7 @@
 <br /><br />
 
 <label for="company">取引先名</label><br />
-<select name="company" size="5">
+<select name="company">
     <c:set var="companies" value=""/>
     <c:forEach var="company" items="${companylist}">
         <option value="${company.id}">${company.name}</option>
@@ -43,7 +43,13 @@
 <br /><br />
 
 <label for="progress">進捗状況</label><br />
-<input type="text" name="progress" value="${report.progress}" />
+<select name="progress">
+    <option value="0">予定前倒し</option>
+    <option value="1">予定通り</option>
+    <option value="2">予定より遅延</option>
+    <option value="3">予定より大幅に遅延</option>
+    <option value="4">完了</option>
+</select>
 <br /><br />
 
 <label for="next_time">次回商談予定日</label><br />

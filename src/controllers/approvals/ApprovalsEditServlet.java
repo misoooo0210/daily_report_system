@@ -42,7 +42,7 @@ public class ApprovalsEditServlet extends HttpServlet {
         if(login_employee.getId() == r.getEmployee().getId()) {
             request.setAttribute("report", r);
             request.setAttribute("_token", request.getSession().getId());
-            request.getSession().setAttribute("report_id", r.getId());
+            request.getSession().setAttribute("report_id", r.getReport_id());
         }
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/approvals/edit.jsp");

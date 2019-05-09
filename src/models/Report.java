@@ -3,6 +3,7 @@ package models;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,13 +14,14 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Table(name = "reports")
 @NamedQueries ({
     @NamedQuery(
             name = "getAllReports",
-            query = "SELECT r FROM Report AS r ORDER BY r.id DESC"
+            query = "SELECT r FROM Report AS r ORDER BY r.report_id DESC"
             ),
     @NamedQuery(
             name = "getReportsCount",
@@ -27,7 +29,7 @@ import javax.persistence.Table;
             ),
     @NamedQuery(
             name = "getMyAllReports",
-            query = "SELECT r FROM Report AS r WHERE r.employee = :employee ORDER BY r.id DESC"
+            query = "SELECT r FROM Report AS r WHERE r.employee = :employee ORDER BY r.report_id DESC"
             ),
     @NamedQuery(
             name = "getMyReportsCount",
@@ -36,11 +38,15 @@ import javax.persistence.Table;
 })
 
 @Entity
-public class Report {
+public class Report{
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "approval_fk")
+    private Approval approval;
+
     @Id
-    @Column(name = "id")
+    @Column(name = "report_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer report_id;
 
     @ManyToOne
     @JoinColumn(name = "employee_id", nullable = false)
@@ -77,15 +83,12 @@ public class Report {
     @Column(name= "next_time", nullable = false)
     private Date next_time;
 
-    @JoinColumn(name = "approval_result", nullable = false)
-    private Integer approval_result;
-
-    public Integer getId() {
-        return id;
+    public Integer getReport_id() {
+        return report_id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setReport_id(Integer report_id) {
+        this.report_id = report_id;
     }
 
     public Employee getEmployee() {
@@ -175,12 +178,11 @@ public class Report {
         this.next_time = next_time;
     }
 
-    public Integer getApproval_result() {
-        return approval_result;
+    public Approval getApproval() {
+        return approval;
     }
 
-    public void setApproval_result(Integer approval_result) {
-        this.approval_result = approval_result ;
+    public void setApproval(Approval approval) {
+        this.approval = approval;
     }
-
 }

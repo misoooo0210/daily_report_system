@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import models.Approval;
 import models.Report;
 import models.validators.ReportValidator;
 import utils.DBUtil;
@@ -40,8 +41,10 @@ public class ReportsUpdateServlet extends HttpServlet {
             EntityManager em = DBUtil.createEntityManager();
 
             Report r = em.find(Report.class, (Integer)(request.getSession().getAttribute("report_id")));
-            r.setCompany(request.getParameter("company"));
+            Approval a = em.find(Approval.class, (Integer)(request.getSession().getAttribute("approval_id")));
 
+            //Report側の更新
+            r.setCompany(request.getParameter("company"));
             r.setReport_date(Date.valueOf(request.getParameter("report_date")));
             r.setTitle(request.getParameter("title"));
             r.setContent(request.getParameter("content"));
@@ -50,6 +53,12 @@ public class ReportsUpdateServlet extends HttpServlet {
             r.setMeet_at(request.getParameter("meet_at"));
             r.setProgress(request.getParameter("progress"));
             r.setNext_time(Date.valueOf(request.getParameter("next_time")));
+
+            //Approval側の登録
+            a.setApprover("未承認");
+            a.setApproved_date(null);
+            a.setApproval_result(0);
+            a.setApproval_comment("承認待ち");
 
             List<String> errors = ReportValidator.validate(r);
             if(errors.size() > 0) {

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import models.Approval;
 import models.Employee;
 import models.Report;
 import models.validators.ReportValidator;
@@ -41,27 +42,36 @@ public class ReportsCreateServlet extends HttpServlet {
             EntityManager em = DBUtil.createEntityManager();
 
             Report r = new Report();
+            Approval a = new Approval();
 
+            //Report側の登録
             r.setEmployee((Employee)request.getSession().getAttribute("login_employee"));
             r.setCompany(request.getParameter("company"));
-
             Date report_date = new Date(System.currentTimeMillis());
             String rd_str = request.getParameter("report_date");
             if(rd_str != null && !rd_str.equals("")) {
                 report_date = Date.valueOf(request.getParameter("report_date"));
             }
             r.setReport_date(report_date);
-            //r.setMeet_time(Date.valueOf(request.getParameter("meet_time")));
-            //r.setNext_time(Date.valueOf(request.getParameter("next_time")));
-
+            Date meet_time = new Date(System.currentTimeMillis());
+            r.setMeet_time(meet_time);
+            Date next_time = new Date(System.currentTimeMillis());
+            r.setNext_time(next_time);
             r.setTitle(request.getParameter("title"));
             r.setContent(request.getParameter("content"));
             r.setMeet_at(request.getParameter("meet_at"));
             r.setProgress(request.getParameter("progress"));
-            r.setApproval_result(0);
             Timestamp currentTime = new Timestamp(System.currentTimeMillis());
             r.setCreated_at(currentTime);
             r.setUpdated_at(currentTime);
+            r.setApproval(a);
+
+            //Approval側の登録
+            a.setReport(r);
+            a.setApprover("未承認");
+            a.setApproved_date(null);
+            a.setApproval_result(0);
+            a.setApproval_comment("承認待ち");
 
             List<String> errors = ReportValidator.validate(r);
             if(errors.size() > 0) {
@@ -69,6 +79,7 @@ public class ReportsCreateServlet extends HttpServlet {
 
                 request.setAttribute("_token", request.getSession().getId());
                 request.setAttribute("report", r);
+                request.setAttribute("approval", a);
                 request.setAttribute("errors", errors);
 
                 RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/reports/new.jsp");
@@ -76,6 +87,7 @@ public class ReportsCreateServlet extends HttpServlet {
             } else {
                 em.getTransaction().begin();
                 em.persist(r);
+                em.persist(a);
                 em.getTransaction().commit();
                 em.close();
                 request.getSession().setAttribute("flush", "登録が完了しました。");

@@ -21,7 +21,7 @@
                         </tr>
                         <tr>
                             <th>取引先名</th>
-                            <td><c:out value="${company.name}" /></td>
+                            <td><c:out value="${report.company}" /></td>
                         </tr>
                         <tr>
                             <th>商談日程</th>
@@ -41,7 +41,13 @@
                         </tr>
                         <tr>
                             <th>進捗状況</th>
-                            <td><c:out value="${report.progress}" /></td>
+                            <td>
+                                <c:if test="${report.progress == 0}">予定前倒し</c:if>
+                                <c:if test="${report.progress == 1}">予定通り</c:if>
+                                <c:if test="${report.progress == 2}">予定より遅延</c:if>
+                                <c:if test="${report.progress == 3}">予定より大幅に遅延</c:if>
+                                <c:if test="${report.progress == 4}">完了</c:if>
+                            </td>
                         </tr>
                         <tr>
                             <th>次回商談予定日</th>
@@ -49,11 +55,6 @@
                                 <fmt:formatDate value="${report.next_time}" pattern="yyyy-MM-dd" />
                             </td>
                         </tr>
-                        <tr>
-                            <th>承認状況</th>
-                            <td><c:out value="${report.approval_result}" /></td>
-                        </tr>
-
                         <tr>
                             <th>登録日時</th>
                             <td>
@@ -66,11 +67,19 @@
                                 <fmt:formatDate value="${report.updated_at}" pattern="yyyy-MM-dd HH:mm:ss" />
                             </td>
                         </tr>
+                        <tr>
+                            <th>承認状況</th>
+                            <td>
+                                <c:if test="${report.approval.approval_result == 0}">未承認</c:if>
+                                <c:if test="${report.approval.approval_result == 1}">承認</c:if>
+                                <c:if test="${report.approval.approval_result == 2}">否認</c:if>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
 
                 <c:if test="${sessionScope.login_employee.id == report.employee.id}">
-                    <p><a href="<c:url value='/reports/edit?id=${report.id}' />">この日報を編集する</a></p>
+                    <p><a href="<c:url value='/reports/edit?id=${report.report_id}' />">この日報を編集する</a></p>
                 </c:if>
             </c:when>
             <c:otherwise>

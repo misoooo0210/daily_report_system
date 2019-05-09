@@ -20,7 +20,7 @@ import javax.persistence.Table;
     @NamedQuery(
             name = "checkRegisteredName",
             query = "SELECT COUNT(c) FROM Company AS c WHERE c.name = :name"
-            ),
+            )
 })
 
 @Entity

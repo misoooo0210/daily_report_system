@@ -1,7 +1,6 @@
 package controllers.approvals;
 
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -41,10 +40,11 @@ public class ApprovalsUpdateServlet extends HttpServlet {
 
             Approval a = em.find(Approval.class, (Integer)(request.getSession().getAttribute("report_id")));
 
-            a.setApprover(request.getParameter("approver"));
-            a.setApproved_date(new Timestamp(System.currentTimeMillis()));
-            a.setApproval_result(Integer.parseInt(request.getParameter("approval_result")));
-            a.setApproval_comment(request.getParameter("approval_comment"));
+            //Approval側の登録
+            a.setApprover(null);
+            a.setApproved_date(null);
+            a.setApproval_result(0);
+            a.setApproval_comment("承認待ち");
 
             List<String> errors = ApprovalValidator.validate(a);
             if(errors.size() > 0) {

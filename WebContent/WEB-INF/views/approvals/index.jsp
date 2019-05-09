@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:import url="../layout/app.jsp">
     <c:param name="content">
-        <h2>日報 一覧</h2>
+        <h2>未承認日報 一覧</h2>
         <table id="report_list">
             <tbody>
                 <tr>
@@ -12,7 +12,7 @@
                     <th class="report_title">タイトル</th>
                     <th class="report_action">操作</th>
                 </tr>
-                <c:forEach var="approval" items="${approvals}" varStatus="status">
+                <c:forEach var="approval" items="${stillNotApproved}" varStatus="status">
                     <tr class="row${status.count % 2}">
                         <td class="report_name"><c:out value="${approval.report.employee.name}" /></td>
                         <td class="report_date"><fmt:formatDate value="${approval.report.report_date}" pattern="yyyy-MM-dd" /></td>

@@ -7,7 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
@@ -17,11 +19,11 @@ import javax.persistence.Table;
 @NamedQueries ({
     @NamedQuery(
             name = "getAllNotApprovedReports",
-            query = "SELECT a FROM Approval AS a WHERE a.approval_result = 0 ORDER BY a.approval_id ASC"
+            query = "SELECT a FROM Approval AS a WHERE a.approval_result = 0 OR a.approval_result = 2 ORDER BY a.approval_id ASC"
             ),
     @NamedQuery(
-            name = "getAllApprovedReports",
-            query = "SELECT a FROM Approval AS a WHERE a.approval_result = 1 ORDER BY a.approval_id ASC"
+            name = "getApprovalsCount",
+            query = "SELECT COUNT(a) FROM Approval AS a WHERE a.approval_result = 0 OR a.approval_result = 2"
             )
 })
 
@@ -35,8 +37,9 @@ public class Approval{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer approval_id;
 
-    @Column(name = "approver", nullable = false)
-    private String approver;
+    @ManyToOne
+    @JoinColumn(name = "approver")
+    private Employee approver;
 
     @Column(name = "approved_date")
     private Date approved_date;
@@ -65,11 +68,11 @@ public class Approval{
         this.approval_id = approval_id;
     }
 
-    public String getApprover() {
+    public Employee getApprover() {
         return approver;
     }
 
-    public void setApprover(String approver) {
+    public void setApprover(Employee approver) {
         this.approver = approver;
     }
 

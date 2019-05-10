@@ -16,7 +16,7 @@ public class ApprovalValidator {
     }
 
     //承認結果が否認のときだけ,comment validationを実行する
-    if(a.getApproval_result() == 1) {
+    if(a.getApproval_result() == 2) {
     String approval_comment_error = _validateApproval_comment(a.getApproval_comment());
     if(!approval_comment_error.equals("")) {
         errors.add(approval_comment_error);

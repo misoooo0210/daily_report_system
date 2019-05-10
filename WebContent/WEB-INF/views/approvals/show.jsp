@@ -64,7 +64,7 @@
                     </tbody>
                 </table>
 
-                    <p><a href="<c:url value='/approvals/edit?id=${report.id}' />">この日報を承認する</a></p>
+                    <p><a href="<c:url value='/approvals/edit?id=${report.report_id}' />">この日報を承認する</a></p>
 
             </c:when>
             <c:otherwise>

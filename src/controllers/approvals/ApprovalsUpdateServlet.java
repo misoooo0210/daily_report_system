@@ -1,6 +1,7 @@
 package controllers.approvals;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import models.Approval;
+import models.Employee;
 import models.validators.ApprovalValidator;
 import utils.DBUtil;
 
@@ -38,13 +40,19 @@ public class ApprovalsUpdateServlet extends HttpServlet {
         if(_token != null && _token.equals(request.getSession().getId())) {
             EntityManager em = DBUtil.createEntityManager();
 
-            Approval a = em.find(Approval.class, (Integer)(request.getSession().getAttribute("report_id")));
+            //Employee login_employee = (Employee)request.getSession().getAttribute("login_employee");
+            //Report r = em.find(Report.class, (Integer)(request.getSession().getAttribute("report_id")));
+            Approval a = em.find(Approval.class, (Integer)(request.getSession().getAttribute("approval_id")));
 
-            //Approval側の登録
-            a.setApprover(null);
-            a.setApproved_date(null);
-            a.setApproval_result(0);
-            a.setApproval_comment("承認待ち");
+            a.setApprover((Employee)request.getSession().getAttribute("login_employee"));
+            Date approved_date = new Date(System.currentTimeMillis());
+            String ad_str = request.getParameter("approved_date");
+            if(ad_str != null && !ad_str.equals("")) {
+                approved_date = Date.valueOf(request.getParameter("approved_date"));
+            }
+            a.setApproved_date(approved_date);
+            a.setApproval_result(Integer.parseInt(request.getParameter("approval_result")));
+            a.setApproval_comment(request.getParameter("approval_comment"));
 
             List<String> errors = ApprovalValidator.validate(a);
             if(errors.size() > 0) {
@@ -62,9 +70,9 @@ public class ApprovalsUpdateServlet extends HttpServlet {
                 em.close();
                 request.getSession().setAttribute("flush", "更新が完了しました。");
 
-                request.getSession().removeAttribute("report_id");
+                request.getSession().removeAttribute("approval_id");
 
-                response.sendRedirect(request.getContextPath() + "/reports/index");
+                response.sendRedirect(request.getContextPath() + "/approvals/index");
             }
 
         }

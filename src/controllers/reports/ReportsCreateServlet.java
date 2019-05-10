@@ -68,7 +68,7 @@ public class ReportsCreateServlet extends HttpServlet {
 
             //Approval側の登録
             a.setReport(r);
-            a.setApprover("未承認");
+            a.setApprover(null);
             a.setApproved_date(null);
             a.setApproval_result(0);
             a.setApproval_comment("承認待ち");

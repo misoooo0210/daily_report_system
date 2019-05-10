@@ -55,7 +55,7 @@ public class ReportsUpdateServlet extends HttpServlet {
             r.setNext_time(Date.valueOf(request.getParameter("next_time")));
 
             //Approval側の登録
-            a.setApprover("未承認");
+            a.setApprover(null);
             a.setApproved_date(null);
             a.setApproval_result(0);
             a.setApproval_comment("承認待ち");

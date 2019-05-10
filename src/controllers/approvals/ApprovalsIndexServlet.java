@@ -41,23 +41,18 @@ public class ApprovalsIndexServlet extends HttpServlet {
         } catch(Exception e) {
             page = 1;
         }
-        List<Approval> stillNotApproved = em.createNamedQuery("getAllNotApprovedReports", Approval.class)
-                                .setFirstResult(15 * (page - 1))
-                                .setMaxResults(15)
-                                .getResultList();
-        List<Approval> alreadyApproved = em.createNamedQuery("getAllApprovedReports", Approval.class)
-                                .setFirstResult(15 * (page - 1))
-                                .setMaxResults(15)
-                                .getResultList();
+        List<Approval> NotApproved = em.createNamedQuery("getAllNotApprovedReports", Approval.class)
+                                        .setFirstResult(15 * (page - 1))
+                                        .setMaxResults(15)
+                                        .getResultList();
 
-        /*long approvals_count = (long)em.createNamedQuery("getApprovalsCount", Long.class)
-                                      .getSingleResult();*/
+        long approvals_count = (long)em.createNamedQuery("getApprovalsCount", Long.class)
+                                         .getSingleResult();
 
         em.close();
 
-        request.setAttribute("stillNotApproved", stillNotApproved);
-        request.setAttribute("alreadyApproved", alreadyApproved);
-        //request.setAttribute("approvals_count", approvals_count);
+        request.setAttribute("NotApproved", NotApproved);
+        request.setAttribute("approvals_count", approvals_count);
         request.setAttribute("page", page);
         if(request.getSession().getAttribute("flush") != null) {
             request.setAttribute("flush", request.getSession().getAttribute("flush"));

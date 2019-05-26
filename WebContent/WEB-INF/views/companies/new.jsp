@@ -49,5 +49,7 @@
             <c:import url="_form.jsp" />
         </form>
 
+        <p><a href="javascript:history.back();">一つ前のページへ戻る</a></p>
+
     </c:param>
 </c:import>

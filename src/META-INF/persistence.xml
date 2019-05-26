@@ -6,6 +6,7 @@
         <class>models.Report</class>
         <class>models.Approval</class>
         <class>models.Company</class>
+        <class>models.Vote</class>
         <properties>
             <property name="javax.persistence.schema-generation.database.action" value="none"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>

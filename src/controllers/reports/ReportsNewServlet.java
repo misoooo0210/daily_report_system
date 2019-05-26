@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import models.Approval;
 import models.Company;
 import models.Report;
+import models.Vote;
 import utils.DBUtil;
 
 /**
@@ -44,6 +45,8 @@ public class ReportsNewServlet extends HttpServlet {
         request.setAttribute("report", r);
         Approval a = new Approval();
         request.setAttribute("approval", a);
+        Vote v = new Vote();
+        request.setAttribute("vote", v);
 
         //取引先名の一覧をつくる
         EntityManager em = DBUtil.createEntityManager();

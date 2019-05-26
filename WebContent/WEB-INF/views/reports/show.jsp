@@ -78,6 +78,14 @@
                     </tbody>
                 </table>
 
+                <p><c:out value="${votes}" /> いいね！</p>
+                <c:if test="${sessionScope.login_employee.id != report.employee.id}">
+                    <form method="POST" action="<c:url value='/votes/add' />">
+                        <p><button type= submit onclick="alert('いいねしました！')">いいね！</button></p>
+                            <input type="hidden" name="_token" value="${_token}" />
+                    </form>
+                </c:if>
+
                 <c:if test="${sessionScope.login_employee.id == report.employee.id}">
                     <p><a href="<c:url value='/reports/edit?id=${report.report_id}' />">この日報を編集する</a></p>
                 </c:if>

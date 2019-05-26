@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import models.Approval;
+import models.Company;
 import models.Employee;
 import models.Report;
 import models.validators.ReportValidator;
@@ -73,6 +74,9 @@ public class ReportsCreateServlet extends HttpServlet {
             a.setApproval_result(0);
             a.setApproval_comment("承認待ち");
 
+            List<Company> companylist = em.createNamedQuery("getAllCompanies", Company.class)
+                                           .getResultList();
+
             List<String> errors = ReportValidator.validate(r);
             if(errors.size() > 0) {
                 em.close();
@@ -81,6 +85,7 @@ public class ReportsCreateServlet extends HttpServlet {
                 request.setAttribute("report", r);
                 request.setAttribute("approval", a);
                 request.setAttribute("errors", errors);
+                request.setAttribute("companylist", companylist);
 
                 RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/reports/new.jsp");
                 rd.forward(request, response);

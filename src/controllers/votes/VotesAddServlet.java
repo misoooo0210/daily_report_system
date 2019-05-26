@@ -3,6 +3,7 @@ package controllers.votes;
 import java.io.IOException;
 
 import javax.persistence.EntityManager;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,6 +36,7 @@ public class VotesAddServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String _token = (String)request.getParameter("_token");
         if(_token != null && _token.equals(request.getSession().getId())) {
+            try {
             EntityManager em = DBUtil.createEntityManager();
 
             Report r = em.find(Report.class, (Integer)(request.getSession().getAttribute("report_id")));
@@ -51,6 +53,10 @@ public class VotesAddServlet extends HttpServlet {
             request.getSession().removeAttribute("report_id");
 
             response.sendRedirect(request.getContextPath() + "/reports/index");
+            } catch (RuntimeException e) {
+                RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/votes/add.jsp");
+                rd.forward(request, response);
+            }
     }
 }
 }

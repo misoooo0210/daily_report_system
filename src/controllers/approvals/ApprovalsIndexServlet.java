@@ -45,6 +45,10 @@ public class ApprovalsIndexServlet extends HttpServlet {
                                         .setFirstResult(15 * (page - 1))
                                         .setMaxResults(15)
                                         .getResultList();
+        List<Approval> Denied = em.createNamedQuery("getAllDeniedReports", Approval.class)
+                                   .setFirstResult(15 * (page - 1))
+                                   .setMaxResults(15)
+                                   .getResultList();
 
         long approvals_count = (long)em.createNamedQuery("getApprovalsCount", Long.class)
                                          .getSingleResult();
@@ -52,6 +56,7 @@ public class ApprovalsIndexServlet extends HttpServlet {
         em.close();
 
         request.setAttribute("NotApproved", NotApproved);
+        request.setAttribute("Denied", Denied);
         request.setAttribute("approvals_count", approvals_count);
         request.setAttribute("page", page);
         if(request.getSession().getAttribute("flush") != null) {

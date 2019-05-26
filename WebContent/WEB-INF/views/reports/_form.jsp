@@ -21,7 +21,7 @@
 <select name="company">
     <c:set var="companies" value=""/>
     <c:forEach var="company" items="${companylist}">
-        <option value="${company.id}">${company.name}</option>
+        <option value="${company.name}">${company.name}</option>
     </c:forEach>
 </select>&nbsp;<a href="<c:url value='/companies/new' />">取引先登録はここから</a>
 <br /><br />

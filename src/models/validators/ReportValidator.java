@@ -1,6 +1,7 @@
 package models.validators;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import models.Report;
@@ -30,7 +31,7 @@ public class ReportValidator {
         errors.add(meet_at_error);
     }
 
-    /*String meet_time_error = _validateMeet_time(r.getMeet_time());
+    String meet_time_error = _validateMeet_time(r.getMeet_time());
     if(!meet_time_error.equals("")) {
         errors.add(meet_time_error);
     }
@@ -38,7 +39,7 @@ public class ReportValidator {
     String next_time_error = _validateNext_time(r.getNext_time());
     if(!next_time_error.equals("")) {
         errors.add(next_time_error);
-    }*/
+    }
 
     return errors;
     }
@@ -71,7 +72,7 @@ public class ReportValidator {
         return "";
     }
 
-    /*public static String _validateMeet_time(Date meet_time) {
+    public static String _validateMeet_time(Date meet_time) {
         if(meet_time == null || meet_time.equals("")) {
             return "商談日程を入力してください。";
         }
@@ -83,5 +84,5 @@ public class ReportValidator {
             return "次回商談予定日を入力してください。";
         }
         return "";
-    }*/
+    }
 }

@@ -19,7 +19,11 @@ import javax.persistence.Table;
 @NamedQueries ({
     @NamedQuery(
             name = "getAllNotApprovedReports",
-            query = "SELECT a FROM Approval AS a WHERE a.approval_result = 0 OR a.approval_result = 2 ORDER BY a.approval_id ASC"
+            query = "SELECT a FROM Approval AS a WHERE a.approval_result = 0 ORDER BY a.approval_id DESC"
+            ),
+    @NamedQuery(
+            name = "getAllDeniedReports",
+            query = "SELECT a FROM Approval AS a WHERE a.approval_result = 2 ORDER BY a.approval_id DESC"
             ),
     @NamedQuery(
             name = "getApprovalsCount",

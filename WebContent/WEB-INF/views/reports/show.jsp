@@ -75,6 +75,13 @@
                                 <c:if test="${report.approval.approval_result == 2}">否認</c:if>
                             </td>
                         </tr>
+                        <c:if test="${report.approval.approval_result == 2}">
+                            <th>(否認の場合)コメント</th>
+                            <td>
+                                <c:out value="${report.approval.approval_comment}" />
+                            </td>
+                        </c:if>
+                        <tr>
                     </tbody>
                 </table>
 

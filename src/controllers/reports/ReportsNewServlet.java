@@ -39,7 +39,6 @@ public class ReportsNewServlet extends HttpServlet {
         //CSRF対策
         request.setAttribute("_token", request.getSession().getId());
 
-        //おまじないとしてのインスタンス作成
         Report r = new Report();
         r.setReport_date(new Date(System.currentTimeMillis()));
         request.setAttribute("report", r);

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import models.Approval;
 import models.Employee;
+import models.Report;
 import models.validators.ApprovalValidator;
 import utils.DBUtil;
 
@@ -40,8 +41,7 @@ public class ApprovalsUpdateServlet extends HttpServlet {
         if(_token != null && _token.equals(request.getSession().getId())) {
             EntityManager em = DBUtil.createEntityManager();
 
-            //Employee login_employee = (Employee)request.getSession().getAttribute("login_employee");
-            //Report r = em.find(Report.class, (Integer)(request.getSession().getAttribute("report_id")));
+            Report r = em.find(Report.class, (Integer)(request.getSession().getAttribute("report_id")));
             Approval a = em.find(Approval.class, (Integer)(request.getSession().getAttribute("approval_id")));
 
             a.setApprover((Employee)request.getSession().getAttribute("login_employee"));
@@ -59,6 +59,7 @@ public class ApprovalsUpdateServlet extends HttpServlet {
                 em.close();
 
                 request.setAttribute("_token", request.getSession().getId());
+                request.setAttribute("report", r);
                 request.setAttribute("approval", a);
                 request.setAttribute("errors", errors);
 

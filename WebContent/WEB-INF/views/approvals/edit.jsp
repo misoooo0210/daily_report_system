@@ -51,7 +51,13 @@
                             </tr>
                             <tr>
                                 <th>進捗状況</th>
-                                <td><c:out value="${report.progress}" /></td>
+                                <td>
+                                    <c:if test="${report.progress == 0}">予定前倒し</c:if>
+                                    <c:if test="${report.progress == 1}">予定通り</c:if>
+                                    <c:if test="${report.progress == 2}">予定より遅延</c:if>
+                                    <c:if test="${report.progress == 3}">予定より大幅に遅延</c:if>
+                                    <c:if test="${report.progress == 4}">完了</c:if>
+                                </td>
                             </tr>
                             <tr>
                                 <th>次回商談予定日</th>

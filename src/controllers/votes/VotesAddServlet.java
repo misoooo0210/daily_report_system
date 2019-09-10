@@ -49,7 +49,6 @@ public class VotesAddServlet extends HttpServlet {
             em.getTransaction().commit();
             em.close();
 
-            // セッションスコープ上の不要になったデータを削除
             request.getSession().removeAttribute("report_id");
 
             response.sendRedirect(request.getContextPath() + "/reports/index");
